@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 import sqlite3
+import os
 from flask_bcrypt import Bcrypt
 
 # contraseña usuario 1: 09876543
@@ -164,4 +165,5 @@ def banear_usuario(usuario_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
