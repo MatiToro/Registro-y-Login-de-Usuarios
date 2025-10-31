@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Registrarse</title>
+</head>
+<body>
+    <a href="{{ url_for('index') }}" class="volver">Volver</a>
+    <h2>Registrarse</h2>
+    <div class="formulario-container">
+        <form method="POST" action="{{ url_for('registro') }}">
+            <div>
+                <label for="nombre"><strong>Nombre</strong></label>
+                <input type="text" name="nombre"  value="{{ nombre or '' }}" required>
+            </div>
+            
+            <div>
+                <label for="email"><strong>Email</strong></label>
+                <input type="email" name="email"  value="{{ email or '' }}" required>
+            </div>
+            
+            <div>
+                <label for="contra"><strong>Contraseña</strong></label>
+                <input type="password" name="contra" required minlength="8">
+            </div>
+            
+            <div>
+                <label for="confirmar"><strong>Confirmar Contraseña</strong></label>
+                <input type="password" name="confirmar" required>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        
+            <button type="submit">Registrarse</button>
+        </form>
+    </div>
+</body>
+</html>

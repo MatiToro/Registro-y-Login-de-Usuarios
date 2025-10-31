@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Usuarios</title>
+</head>
+<body>
+    <a href="{{ url_for('index') }}" class="volver">Volver</a>
+    <h2>Panel de Usuarios</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Email</th>
+                <th>Tipo</th>
+                <th>Estado</th>
+                <th>Acción</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for usuario in usuarios %}
+                <tr>
+                    <td>{{ usuario[0] }}</td>
+                    <td>{{ usuario[1] }}</td>
+                    <td>{{ usuario[2] }}</td>
+                    <td>{{ usuario[3] }}</td>
+                    <td>{{ usuario[4] }}</td>
+                    <!--BANEAR USUARIOS-->
+                    <td>
+                    {% if usuario[3] != 'admin' %}
+                        <form action="{{ url_for('banear_usuario', usuario_id=usuario[0]) }}" method="POST">
+                            {% if usuario[4] == 'activo' %}
+                                <button type="submit" class="btn-banear">Banear</button>
+                            {% else %}
+                                <button type="submit" class="btn-desbanear">Desbanear</button>
+                            {% endif %}
+                        </form>
+                    {% else %}
+                        <span  class="no-disp">No disponible</span>
+                    {% endif %}
+                    </td>
+                    <!------------------>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

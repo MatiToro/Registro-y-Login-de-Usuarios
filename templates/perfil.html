@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Perfil</title>
+</head>
+<body>
+    <a href="{{ url_for('index') }}" class="volver">Volver</a>
+    <h2>Mi Perfil</h2>
+    <div class="perfil-container">
+        <div class="perfil-info">
+            <p><strong>Nombre:</strong> {{ usuario['nombre'] }}</p>
+            <p><strong>Email:</strong> {{ usuario['email'] }}</p>
+        </div>
+    </div>
+</body>
+</html>

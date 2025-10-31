@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Inicio</title>
+</head>
+<body>
+    <h1>Bienvenido</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <nav>
+        {% if session.get('usuario_id') %}
+            {% if session.get('tipo') == 'admin' %}
+                <!-- Opciones exclusivas del admin -->
+                <a href="{{ url_for('ver_usuarios') }}">Usuarios</a>
+                <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+            {% else %}
+                <!-- Opciones para usuarios comunes -->
+                <a href="{{ url_for('perfil') }}">Perfil</a>
+                <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+            {% endif %}
+            {% else %}
+                <!-- Opciones para visitantes -->
+                <a href="{{ url_for('registro') }}">Registrarse</a>
+                <a href="{{ url_for('login') }}">Iniciar sesión</a>
+        {% endif %}
+    </nav>
+</body>
+</html>

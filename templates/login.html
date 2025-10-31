@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Iniciar Sesion</title>
+</head>
+<body>
+    <a href="{{ url_for('index') }}" class="volver">Volver</a>
+    <h2>Iniciar Sesion</h2>
+    <div class="formulario-container">
+        <form method="POST" action="{{ url_for('login') }}">
+
+            <div>
+                <label for="email"><strong>Email</strong></label>
+                <input type="email" name="email" required >
+            </div>
+            
+            <div>
+                <label for="contra"><strong>Contraseña</strong></label>
+                <input type="password" name="contra" required>
+            </div>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <button type="submit">Iniciar Sesion</button>
+            
+
+        </form>
+    </div>
+</body>
+</html>
